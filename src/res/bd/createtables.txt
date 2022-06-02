@@ -1,0 +1,23 @@
+CREATE TABLE PRODUCTOS(
+nombreProd VARCHAR2 NOT NULL PRIMARY KEY,
+precioU FLOAT NOT NULL,
+precioIVA FLOAT,
+IVA INT NOT NULL,
+fechaadd DATE
+);
+
+insert into productos values("Pintar pared",20,,21,)
+
+
+CREATE TABLE USUARIOS(
+nombreEmpresa VARCHAR2 NOT NULL,
+codPost int NOT NULL,
+localidad VARCHAR2,
+NIF VARCHAR2 NOT NULL,
+tel VARCHAR2,
+correo varchar2,
+web varchar2,
+empresa boolean not null,
+logopath varchar,
+PRIMARY KEY(nombreEmpresa, NIF)
+);

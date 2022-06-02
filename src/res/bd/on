@@ -1,0 +1,4 @@
+.open Presudy.db
+.mode column
+.header on
+.read cmd.sql
