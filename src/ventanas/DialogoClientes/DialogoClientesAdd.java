@@ -55,8 +55,9 @@ public class DialogoClientesAdd extends javax.swing.JDialog {
         for(ArrayList<String> dato:datosmetodo){
           
         panelTabla.add(new TablaLineasCl(dato.get(1), dato.get(2), dato.get(3), dato.get(4),dato.get(5),dato.get(6),dato.get(7),dato.get(8),dato.get(9),dato.get(10),connection,panelTabla));
-        }
-        panelTabla.setBounds(0, 0, 657, heightpanel);
+        }for (int i = panelTabla.getComponentCount(); i < 10; i++) {
+                    panelTabla.add(new JPanel());
+                }
         panelTabla.repaint();
         panelTabla.revalidate();
     }

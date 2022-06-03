@@ -362,6 +362,7 @@ public class Principal extends javax.swing.JFrame {
         panelProductos.setVisible(false);
         panelPresupuesto.setVisible(true);
         panelUsers.setVisible(false);
+        PanelPresupuesto.actualizartablas();
 
        }//GEN-LAST:event_PresupuestosMouseClicked
 

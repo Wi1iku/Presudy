@@ -45,12 +45,13 @@ public class TablaLineasUsers extends JPanel{
     String web;
     Boolean esEmpresa;
     String datorow;
+    String imgpath;
     private JPanel panelTabla;
     private Connection con;
     JPopupMenu menu = new JPopupMenu("Menu");
     Color defaultColor = new Color(214, 217, 223);
 
-    public TablaLineasUsers(String datorow,String nombreEmpresa, String codPost, String localidad, String nif, String telefono, String correo, String web,Boolean esEmpresa,Connection con ,JPanel panelTabla) {
+    public TablaLineasUsers(String datorow,String nombreEmpresa, String codPost, String localidad, String nif, String telefono, String correo, String web,Boolean esEmpresa,String imgpath,Connection con ,JPanel panelTabla) {
         this.setLayout(new java.awt.GridLayout(1, 4));
         jLabel1.setPreferredSize(new Dimension(85, 48));
         this.add(jLabel1);
@@ -66,6 +67,7 @@ public class TablaLineasUsers extends JPanel{
         this.web=web;
         this.panelTabla = panelTabla;
         this.con = con;
+        this.imgpath=imgpath;
         jLabel1.setText(this.nombreEmpresa);
         jLabel2.setText(this.telefono);
         jLabel3.setText(this.correo);
@@ -154,7 +156,7 @@ public class TablaLineasUsers extends JPanel{
 
     void MouseClicked1st(java.awt.event.MouseEvent evt) {
         if ((evt.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
-            DialogoUsuariosView dialogoUsuariosView = new DialogoUsuariosView(new javax.swing.JDialog(), true, con, datorow,nombreEmpresa, codPost, localidad, nif, telefono,correo,web,esEmpresa);
+            DialogoUsuariosView dialogoUsuariosView = new DialogoUsuariosView(new javax.swing.JDialog(), true, con, datorow,nombreEmpresa, codPost, localidad, nif, telefono,correo,web,esEmpresa,imgpath);
 
             dialogoUsuariosView.setVisible(true);
             dialogoUsuariosView.setSize(600, 600);
@@ -188,6 +190,8 @@ public class TablaLineasUsers extends JPanel{
                 datosmetodo.get(i).add(result.getString(7));
                 datosmetodo.get(i).add(result.getString(8));
                 datosmetodo.get(i).add(String.valueOf(result.getBoolean(9)));
+                datosmetodo.get(i).add(result.getString(10));
+                
                 
                 i++;
 
@@ -208,7 +212,7 @@ public class TablaLineasUsers extends JPanel{
         datosmetodo = mostrardatos("usuarios", con);
         for (ArrayList<String> dato : datosmetodo) {
             // System.out.println("test1");
-            panelTabla.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),con, panelTabla));
+            panelTabla.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),con, panelTabla));
             
             //heightpanel+=38;
             // System.out.println("test1");

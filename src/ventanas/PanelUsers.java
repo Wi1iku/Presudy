@@ -38,7 +38,7 @@ public class PanelUsers extends javax.swing.JPanel {
             for (ArrayList<String> dato : datosmetodo) {
 
                 if (dato.size() > 0) {
-                    panelLabels.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),connection, panelLabels));
+                    panelLabels.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),connection, panelLabels));
      
                 }
                 
@@ -73,6 +73,8 @@ public class PanelUsers extends javax.swing.JPanel {
                 datosmetodo.get(i).add(result.getString(7));
                 datosmetodo.get(i).add(result.getString(8));
                 datosmetodo.get(i).add(String.valueOf(result.getBoolean(9)));
+                
+                datosmetodo.get(i).add(result.getString(10));
                 
                 i++;
             }

@@ -64,7 +64,7 @@ public class TablaLineasPresu extends JPanel{
         this.setPreferredSize(d);
         this.setMaximumSize(d);
         this.setMinimumSize(d);
-        this.setBackground(Color.red);
+        this.setBackground(new Color(214, 217, 223));
         this.add(jLabel1);
         this.add(jLabel2);
         this.add(jLabel3);

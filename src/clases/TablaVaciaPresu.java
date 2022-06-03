@@ -20,7 +20,7 @@ public class TablaVaciaPresu extends JPanel{
         this.setPreferredSize(d);
         this.setMaximumSize(d);
         this.setMinimumSize(d);
-        this.setBackground(Color.red);
+        this.setBackground(new Color(214, 217, 223));
     }
     
 }

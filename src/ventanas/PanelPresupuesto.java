@@ -26,29 +26,29 @@ public class PanelPresupuesto extends javax.swing.JPanel {
     private ArrayList<ArrayList> datosAgredados = new ArrayList<>();
     public static ArrayList<String> addedobjects = new ArrayList<>();
     private static Connection connection;
-
+    static int iol;
     public PanelPresupuesto(Connection connection) {
 
-        int i;
+        
         this.connection = connection;
         initComponents();
 
-        ArrayList<ArrayList<String>> datos = mostrardatos("CLIENTES");
-        i = 0;
+    }
+    public static void actualizartablas(){
+    ArrayList<ArrayList<String>> datos = mostrardatos("CLIENTES");
+        iol = 0;
         for (ArrayList<String> dato : datos) {
-            i++;
+            iol++;
             jComboBoxCliente.addItem(dato.get(1));
         }
         datos = mostrardatos("USUARIOS");
-        i = 0;
+        iol = 0;
         for (ArrayList<String> dato : datos) {
-            i++;
+            iol++;
             jComboBox1.addItem(dato.get(1)+"  ||  "+dato.get(4));
         }
         actualizarjcomboprod();
-
     }
-
     public static void actualizarjcomboprod() {
         int i = 0;
         jComboBoxProducto.removeAllItems();
@@ -448,8 +448,8 @@ public class PanelPresupuesto extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBoxCliente;
+    private static javax.swing.JComboBox<String> jComboBox1;
+    private static javax.swing.JComboBox<String> jComboBoxCliente;
     private static javax.swing.JComboBox<String> jComboBoxProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

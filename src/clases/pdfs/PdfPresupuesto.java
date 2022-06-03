@@ -33,6 +33,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.NumberFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,7 +45,7 @@ import javafx.scene.paint.Color;
 import javax.swing.text.Element;
 public class PdfPresupuesto {
     private static final File ESTACARPETA = new File("").getAbsoluteFile();
-    private final String LOGOEMP=ESTACARPETA+File.separator+"src"+File.separator+"res"+File.separator+"images"+File.separator+"company.jpg";
+    private String logoemp=ESTACARPETA+File.separator+"src"+File.separator+"res"+File.separator+"images"+File.separator+"company.jpg";
     public String destino;
     PdfWriter writer;
     String destinoString;
@@ -52,11 +53,13 @@ public class PdfPresupuesto {
     Boolean empresa;
     String facturacionString;
     ArrayList<String> arrayListcliente;
+    NumberFormat currencyformatter;
     
     ArrayList<String> arrayListUsuario;
     public PdfPresupuesto(String destinoString,String nombreCliente,String nombreUsuario,ArrayList<ArrayList> datosAgregados,Connection connection) {
         destino = ESTACARPETA+File.separator+"Pdfs";
         this.destinoString=destinoString;
+        currencyformatter= NumberFormat.getCurrencyInstance();
         arrayListcliente=new ArrayList<>();
         arrayListUsuario = new ArrayList<>();
         Image logo = null;
@@ -64,16 +67,12 @@ public class PdfPresupuesto {
             destino=destino+File.separator+destinoString+(Instant.now()).toEpochMilli()+".pdf";
             this.writer=new PdfWriter(destino);
             this.connection=connection;
-            try {
-                logo = new Image(ImageDataFactory.create(LOGOEMP));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            
             PdfDocument pdf = new PdfDocument(writer);
             Document document;
             document = new Document(pdf, PageSize.A4);
             document.setMargins(20, 20, 20, 15);
-            logo.scaleToFit(150, 150);
+            
             
             SolidLine lineDrawer = new SolidLine();
             lineDrawer.setColor(com.itextpdf.kernel.color.Color.convertCmykToRgb(DeviceCmyk.BLACK));
@@ -140,8 +139,9 @@ public class PdfPresupuesto {
                 arrayListUsuario.add(result.getString(6));
                 arrayListUsuario.add(result.getString(7));
                 arrayListUsuario.add(String.valueOf(result.getBoolean(8)));
-                
+                arrayListUsuario.add(result.getString(9));
                 empresa=result.getBoolean(8);
+                
                 }
                 
    
@@ -157,6 +157,15 @@ public class PdfPresupuesto {
                     j++;
                 }
             String datospersonales;
+            if (!arrayListUsuario.get(8).equals("")) {
+                logoemp=arrayListUsuario.get(8);
+            }
+            try {
+                logo = new Image(ImageDataFactory.create(logoemp));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            logo.scaleToFit(150, 150);
             if(empresa){
             datospersonales="Razon social\\|Domicilio fiscal\\|NIF\\|Telefono\\|Correo Elec.";
             }else{
@@ -195,7 +204,7 @@ public class PdfPresupuesto {
             float preciototalapagar=0;
             
             for (ArrayList datosAgregado : datosAgregados) {
-                String datosaprocesar = datosAgregado.get(0)+"\\|"+datosAgregado.get(1)+"\\|"+datosAgregado.get(2)+"\\|"+datosAgregado.get(3)+"\\|"+datosAgregado.get(4);
+                String datosaprocesar = datosAgregado.get(0)+"\\|"+currencyformatter.format(Float.valueOf(String.valueOf(datosAgregado.get(1))))+"\\|"+datosAgregado.get(2)+"\\|"+datosAgregado.get(3)+"%"+"\\|"+currencyformatter.format(Float.valueOf(String.valueOf(datosAgregado.get(4))));
                 process(prods, datosaprocesar, false);
                 preciototalapagar=preciototalapagar+Float.valueOf(datosAgregado.get(4).toString());
             }
@@ -204,7 +213,7 @@ public class PdfPresupuesto {
             precioapagar.setTextAlignment(TextAlignment.CENTER);
             precioapagar.setHorizontalAlignment(HorizontalAlignment.RIGHT);
             process(precioapagar, "Precio total a pagar", false);
-            process(precioapagar, String.valueOf(preciototalapagar+" €"), false);
+            process(precioapagar, currencyformatter.format(preciototalapagar), false);
             listuser.setHorizontalAlignment(HorizontalAlignment.RIGHT);
             document.add(tablaprin);
             
@@ -232,7 +241,7 @@ public class PdfPresupuesto {
             this.writer=new PdfWriter(destino);
             this.connection=connection;
             try {
-                logo = new Image(ImageDataFactory.create(LOGOEMP));
+                logo = new Image(ImageDataFactory.create(logoemp));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -240,7 +249,6 @@ public class PdfPresupuesto {
             Document document;
             document = new Document(pdf, PageSize.A4);
             document.setMargins(20, 20, 20, 15);
-            logo.scaleToFit(150, 150);
             
             SolidLine lineDrawer = new SolidLine();
             lineDrawer.setColor(com.itextpdf.kernel.color.Color.convertCmykToRgb(DeviceCmyk.BLACK));
@@ -259,7 +267,6 @@ public class PdfPresupuesto {
             //table.setWidth(75);
             System.out.println(nombreCliente);
             String sql="Select * from Clientes WHERE clientes.nombreCliente='"+nombreCliente+"'";
-            System.out.println(sql+"pronblemaaaaaaaaaaaaaaaaaa");
             Statement st;
             try {
                 st = connection.createStatement();
@@ -324,6 +331,15 @@ public class PdfPresupuesto {
                     j++;
                 }
             String datospersonales;
+            if (!arrayListUsuario.get(8).equals("")) {
+                logoemp=arrayListUsuario.get(8);
+            }
+            try {
+                logo = new Image(ImageDataFactory.create(logoemp));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            logo.scaleToFit(150, 150);
             if(empresa){
             datospersonales="Razon social\\|Domicilio fiscal\\|NIF\\|Telefono\\|Correo Elec.";
             }else{
@@ -362,7 +378,7 @@ public class PdfPresupuesto {
             float preciototalapagar=0;
             
             for (ArrayList datosAgregado : datosAgregados) {
-                String datosaprocesar = datosAgregado.get(0)+"\\|"+datosAgregado.get(1)+"\\|"+datosAgregado.get(2)+"\\|"+datosAgregado.get(3)+"\\|"+datosAgregado.get(4);
+                String datosaprocesar = datosAgregado.get(0)+"\\|"+currencyformatter.format(Float.valueOf(String.valueOf(datosAgregado.get(1))))+"\\|"+datosAgregado.get(2)+"\\|"+datosAgregado.get(3)+"%"+"\\|"+currencyformatter.format(Float.valueOf(String.valueOf(datosAgregado.get(4))));
                 process(prods, datosaprocesar, false);
                 preciototalapagar=preciototalapagar+Float.valueOf(datosAgregado.get(4).toString());
             }
@@ -371,7 +387,7 @@ public class PdfPresupuesto {
             precioapagar.setTextAlignment(TextAlignment.CENTER);
             precioapagar.setHorizontalAlignment(HorizontalAlignment.RIGHT);
             process(precioapagar, "Precio total a pagar", false);
-            process(precioapagar, String.valueOf(preciototalapagar+" €"), false);
+            process(precioapagar, currencyformatter.format(preciototalapagar), false);
             listuser.setHorizontalAlignment(HorizontalAlignment.RIGHT);
             document.add(tablaprin);
             

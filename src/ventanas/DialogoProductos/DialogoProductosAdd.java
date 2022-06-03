@@ -302,8 +302,9 @@ void actualizardatos() {
 
             //heightpanel+=38;
             // System.out.println("test1");
-        }
-        panelTabla.setBounds(0, 0, 657, heightpanel);
+        }for (int i = panelTabla.getComponentCount(); i < 10; i++) {
+                    panelTabla.add(new JPanel());
+                }
         panelTabla.repaint();
         panelTabla.revalidate();
         //System.out.println(datosmetodo.size()+"numero de filas2");
@@ -335,6 +336,7 @@ ArrayList<ArrayList<String>> mostrardatos(String nombreTabla, Connection con) {
             ex.printStackTrace();
 
         }
+        
         return datosmetodo;
     }
     /**
