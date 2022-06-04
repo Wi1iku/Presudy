@@ -50,7 +50,7 @@ public class Principal extends javax.swing.JFrame {
         }
         initComponents();
         panelClientes = new PanelClientes(connection);
-        panelFacturas = new PanelFacturas();
+        panelFacturas = new PanelFacturas(connection);
         panelInicio = new PanelInicio();
         panelProductos = new PanelProductos(connection);
         panelPresupuesto = new PanelPresupuesto(connection);

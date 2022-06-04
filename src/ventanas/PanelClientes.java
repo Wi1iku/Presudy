@@ -6,6 +6,7 @@ package ventanas;
 
 import ventanas.DialogoClientes.DialogoClientesAdd;
 import clases.TablaLineasCl;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ public class PanelClientes extends javax.swing.JPanel {
 
         ArrayList<ArrayList<String>> datosmetodo = new ArrayList();
         datosmetodo = mostrardatos();
+        int colork=0;
         //Añadir labels al scroll
         //System.out.println("ready to index");
         //System.out.println(datosmetodo.size());
@@ -38,13 +40,13 @@ public class PanelClientes extends javax.swing.JPanel {
 
                 if (dato.size() > 0) {
                     panelLabels.add(new TablaLineasCl(dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), 
-                            dato.get(6),dato.get(7),dato.get(8),dato.get(9),dato.get(10), connection, panelLabels));
-                    //ystem.out.println("datos indexed");
+                            dato.get(6),dato.get(7),dato.get(8),dato.get(9),dato.get(10), connection, panelLabels,colork));
+                    colork++;
                 }
                 
             }
         }for (int i = panelLabels.getComponentCount(); i < 10; i++) {
-                    panelLabels.add(new JPanel());
+                    panelLabels.add(new JPanel()).setBackground(new Color(204,255,255));
                 }
 
     }
@@ -105,11 +107,12 @@ public class PanelClientes extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         delete.setText("jMenuItem1");
         jPopupMenu1.add(delete);
 
-        setBackground(new java.awt.Color(255, 153, 102));
+        setBackground(new java.awt.Color(204, 255, 255));
         setPreferredSize(new java.awt.Dimension(1115, 720));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -126,8 +129,9 @@ public class PanelClientes extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 270, 50));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 270, 50));
 
+        panelDefaukt.setBackground(new java.awt.Color(204, 255, 255));
         panelDefaukt.setLayout(new java.awt.GridLayout(0, 4));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -147,6 +151,12 @@ public class PanelClientes extends javax.swing.JPanel {
         panelDefaukt.add(jLabel4);
 
         add(panelDefaukt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 1110, 50));
+
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Base de datos Clientes");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -162,6 +172,7 @@ public class PanelClientes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelDefaukt;

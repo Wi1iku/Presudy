@@ -5,6 +5,7 @@
 package ventanas.DialogoUsuarios;
 
 import clases.TablaLineasUsers;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -63,16 +64,17 @@ void actualizardatos() {
         ArrayList<ArrayList<String>> datosmetodo = new ArrayList();
         int heightpanel = 0;
         panelTabla.removeAll();
+        int colork=0;
         datosmetodo = mostrardatos("usuarios", connection);
         for (ArrayList<String> dato : datosmetodo) {
             // System.out.println("test1");
-            panelTabla.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),connection, panelTabla));
-            
+            panelTabla.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),connection, panelTabla,colork));
+            colork++;
             //heightpanel+=38;
             // System.out.println("test1");
         }
         for (int i = panelTabla.getComponentCount(); i < 6; i++) {
-                    panelTabla.add(new JPanel());
+                    panelTabla.add(new JPanel()).setBackground(new Color(204,255,255));
                 }
         panelTabla.repaint();
         panelTabla.revalidate();
@@ -347,12 +349,13 @@ void actualizardatos() {
                     .addComponent(jCheckBox1))
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(jLabel12)))
+                        .addComponent(jLabel12))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap())

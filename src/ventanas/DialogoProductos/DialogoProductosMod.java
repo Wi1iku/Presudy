@@ -231,10 +231,11 @@ public class DialogoProductosMod extends javax.swing.JDialog {
                 }
             }
         try{
+            String[] iva = jTextField3.getText().split("%");
         String sql = "Update Productos set nombreProd='"+jTextField1.getText()
             + "',precioU='"+jTextField2.getText()
             + "',precioIVA='"+jTextField4.getText()
-            + "',IVA='"+jTextField3.getText()
+            + "',IVA='"+iva[0]
             +"' where ROWID="+datorow+"" ;
             System.out.println(sql);
 

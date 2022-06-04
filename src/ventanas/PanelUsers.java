@@ -6,6 +6,7 @@ package ventanas;
 
 
 import clases.TablaLineasUsers;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ import ventanas.DialogoUsuarios.DialogoUsuariosAdd;
 public class PanelUsers extends javax.swing.JPanel {
 
     Connection connection;
-
+    int colorkey=0;
     public PanelUsers(Connection connection) {
         this.connection = connection;
         initComponents();
@@ -38,14 +39,14 @@ public class PanelUsers extends javax.swing.JPanel {
             for (ArrayList<String> dato : datosmetodo) {
 
                 if (dato.size() > 0) {
-                    panelLabels.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),connection, panelLabels));
-     
+                    panelLabels.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),connection, panelLabels,colorkey));
+                    colorkey++;
                 }
                 
-            }for (int i = panelLabels.getComponentCount(); i < 6; i++) {
-                    panelLabels.add(new JPanel());
+            }
+        }for (int i = panelLabels.getComponentCount(); i < 6; i++) {
+                    panelLabels.add(new JPanel()).setBackground(new Color(204,255,255));
                 }
-        }
 
     }
 
@@ -105,11 +106,12 @@ public class PanelUsers extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         delete.setText("jMenuItem1");
         jPopupMenu1.add(delete);
 
-        setBackground(new java.awt.Color(255, 153, 102));
+        setBackground(new java.awt.Color(204, 255, 255));
         setPreferredSize(new java.awt.Dimension(1115, 720));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -126,8 +128,9 @@ public class PanelUsers extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 270, 50));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 270, 50));
 
+        panelDefaukt.setBackground(new java.awt.Color(204, 255, 255));
         panelDefaukt.setLayout(new java.awt.GridLayout(0, 3));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,6 +149,11 @@ public class PanelUsers extends javax.swing.JPanel {
         panelDefaukt.add(jLabel3);
 
         add(panelDefaukt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 1110, 50));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Base de datos Usuarios");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -161,6 +169,7 @@ public class PanelUsers extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelDefaukt;

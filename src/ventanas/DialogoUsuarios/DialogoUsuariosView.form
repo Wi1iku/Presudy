@@ -278,11 +278,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Wiku\Documents\NetBeansProjects\Presudy\explosiom2.jpg.png"/>
-        </Property>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

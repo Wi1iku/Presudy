@@ -180,8 +180,6 @@ public class DialogoUsuariosView extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("¿Es una empresa?");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\Wiku\\Documents\\NetBeansProjects\\Presudy\\explosiom2.jpg.png")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

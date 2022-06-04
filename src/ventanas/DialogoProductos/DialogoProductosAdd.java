@@ -5,6 +5,7 @@
 package ventanas.DialogoProductos;
 
 import clases.TablaLineasPr;
+import java.awt.Color;
 import ventanas.DialogoClientes.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -292,18 +293,19 @@ if(jTextField1.getText().contains("Obligatorio añadir...") && jTextField1.hasFo
 void actualizardatos() {
         ArrayList<ArrayList<String>> datosmetodo = new ArrayList();
         int heightpanel = 0;
+        int colork=0;
         panelTabla.removeAll();
         datosmetodo = mostrardatos("Productos", con);
         System.out.println(datosmetodo.size() + "numero de filas1");
         for (ArrayList<String> dato : datosmetodo) {
             // System.out.println("test1");
             panelTabla.add(new TablaLineasPr(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4),
-                    dato.get(5),con, panelTabla));
-
+                    dato.get(5),con, panelTabla,colork));
+            colork++;
             //heightpanel+=38;
             // System.out.println("test1");
         }for (int i = panelTabla.getComponentCount(); i < 10; i++) {
-                    panelTabla.add(new JPanel());
+                    panelTabla.add(new JPanel()).setBackground(new Color(204,255,255));
                 }
         panelTabla.repaint();
         panelTabla.revalidate();

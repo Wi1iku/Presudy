@@ -50,10 +50,21 @@ public class TablaLineasCl extends JPanel {
     private JPanel panelTabla;
     private Connection con;
     JPopupMenu menu = new JPopupMenu("Menu");
-    Color defaultColor = new Color(214, 217, 223);
+    
+    Color defaultColor = new Color(204,255,255);
+    Color contrascolor = new Color(187, 250, 250);
+    int colorkey;
+    Color colorausar;
 
-    public TablaLineasCl(String dato1, String dato2, String dato3, String dato4, String dato5, String dato6, String dato7, String dato8, String dato9, String dato10, Connection con, JPanel panelTabla) {
+    public TablaLineasCl(String dato1, String dato2, String dato3, String dato4, String dato5, String dato6, String dato7, String dato8, String dato9, String dato10, Connection con, JPanel panelTabla,int colork) {
         this.setLayout(new java.awt.GridLayout(1, 4));
+        this.colorkey=colork;
+        if ((colorkey%2)==0) {
+            colorausar=contrascolor;
+        }else{
+        colorausar=defaultColor;
+        }
+        this.setBackground(colorausar);
         this.add(jLabel1);
         this.setPreferredSize(new Dimension(1107, 49));
         this.setSize(new Dimension(1107, 49));
@@ -155,7 +166,7 @@ public class TablaLineasCl extends JPanel {
     }
 
     void MouseExited(java.awt.event.MouseEvent evt) {
-        this.setBackground(defaultColor);
+        this.setBackground(colorausar);
     }
 
     void MouseClicked1st(java.awt.event.MouseEvent evt) {
@@ -247,17 +258,18 @@ public class TablaLineasCl extends JPanel {
         ArrayList<ArrayList<String>> datosmetodo = new ArrayList();
         int heightpanel = 0;
         panelTabla.removeAll();
+        colorkey=0;
         datosmetodo = mostrardatos("Clientes", con);
         System.out.println(datosmetodo.size() + "numero de filas1");
         for (ArrayList<String> dato : datosmetodo) {
             // System.out.println("test1");
             panelTabla.add(new TablaLineasCl(dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5),
-                    dato.get(6), dato.get(7), dato.get(8), dato.get(9), dato.get(10), con, panelTabla));
-
+                    dato.get(6), dato.get(7), dato.get(8), dato.get(9), dato.get(10), con, panelTabla,colorkey));
+            colorkey++;
             //heightpanel+=38;
             // System.out.println("test1");
         }for (int i = panelTabla.getComponentCount(); i < 10; i++) {
-                    panelTabla.add(new JPanel());
+                    panelTabla.add(new JPanel()).setBackground(defaultColor);
                 }
         panelTabla.repaint();
         panelTabla.revalidate();

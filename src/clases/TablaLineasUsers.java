@@ -49,11 +49,20 @@ public class TablaLineasUsers extends JPanel{
     private JPanel panelTabla;
     private Connection con;
     JPopupMenu menu = new JPopupMenu("Menu");
-    Color defaultColor = new Color(214, 217, 223);
+    Color defaultColor = new Color(204,255,255);
+    Color contrascolor = new Color(187, 250, 250);
+    int colorkey;
+    Color colorausar;
 
-    public TablaLineasUsers(String datorow,String nombreEmpresa, String codPost, String localidad, String nif, String telefono, String correo, String web,Boolean esEmpresa,String imgpath,Connection con ,JPanel panelTabla) {
+    public TablaLineasUsers(String datorow,String nombreEmpresa, String codPost, String localidad, String nif, String telefono, String correo, String web,Boolean esEmpresa,String imgpath,Connection con ,JPanel panelTabla,int colorkey) {
         this.setLayout(new java.awt.GridLayout(1, 4));
         jLabel1.setPreferredSize(new Dimension(85, 48));
+        if((colorkey%2)==0){
+        colorausar=contrascolor;
+        }else{
+        colorausar=defaultColor;
+        }
+        this.setBackground(colorausar);
         this.add(jLabel1);
         this.add(jLabel2);
         this.add(jLabel3);
@@ -68,10 +77,10 @@ public class TablaLineasUsers extends JPanel{
         this.panelTabla = panelTabla;
         this.con = con;
         this.imgpath=imgpath;
+        this.colorkey=colorkey;
         jLabel1.setText(this.nombreEmpresa);
         jLabel2.setText(this.telefono);
         jLabel3.setText(this.correo);
-        
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -129,7 +138,7 @@ public class TablaLineasUsers extends JPanel{
         modify.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DialogoUsuariosMod dialogoProductosMod = new DialogoUsuariosMod(new javax.swing.JDialog(), true, con, datorow,nombreEmpresa, codPost, localidad, nif, telefono,correo,web,esEmpresa);
+                DialogoUsuariosMod dialogoProductosMod = new DialogoUsuariosMod(new javax.swing.JDialog(), true, con, datorow,nombreEmpresa, codPost, localidad, nif, telefono,correo,web,esEmpresa,imgpath);
 
                 dialogoProductosMod.setVisible(true);
                 dialogoProductosMod.setSize(600, 600);
@@ -151,7 +160,7 @@ public class TablaLineasUsers extends JPanel{
     }
 
     void MouseExited(java.awt.event.MouseEvent evt) {
-        this.setBackground(defaultColor);
+        this.setBackground(colorausar);
     }
 
     void MouseClicked1st(java.awt.event.MouseEvent evt) {
@@ -208,17 +217,18 @@ public class TablaLineasUsers extends JPanel{
     void actualizardatos() {
         ArrayList<ArrayList<String>> datosmetodo = new ArrayList();
         int heightpanel = 0;
+        colorkey=0;
         panelTabla.removeAll();
         datosmetodo = mostrardatos("usuarios", con);
         for (ArrayList<String> dato : datosmetodo) {
             // System.out.println("test1");
-            panelTabla.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),con, panelTabla));
-            
+            panelTabla.add(new TablaLineasUsers(dato.get(0), dato.get(1), dato.get(2), dato.get(3), dato.get(4), dato.get(5), dato.get(6), dato.get(7), Boolean.valueOf(dato.get(8)),dato.get(9),con, panelTabla,colorkey));
+            colorkey++;
             //heightpanel+=38;
             // System.out.println("test1");
         }
         for (int i = panelTabla.getComponentCount(); i < 6; i++) {
-                    panelTabla.add(new JPanel());
+                    panelTabla.add(new JPanel()).setBackground(defaultColor);
                 }
         panelTabla.repaint();
         panelTabla.revalidate();

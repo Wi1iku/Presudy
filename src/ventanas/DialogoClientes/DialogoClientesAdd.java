@@ -5,6 +5,7 @@
 package ventanas.DialogoClientes;
 
 import clases.TablaLineasCl;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,6 +48,7 @@ public class DialogoClientesAdd extends javax.swing.JDialog {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
     }
     void actualizardatos(JPanel panelTabla){
+        int colork=0;
     ArrayList<ArrayList<String>> datosmetodo = new ArrayList();
         int heightpanel=0;
         panelTabla.removeAll();
@@ -54,9 +56,10 @@ public class DialogoClientesAdd extends javax.swing.JDialog {
            
         for(ArrayList<String> dato:datosmetodo){
           
-        panelTabla.add(new TablaLineasCl(dato.get(1), dato.get(2), dato.get(3), dato.get(4),dato.get(5),dato.get(6),dato.get(7),dato.get(8),dato.get(9),dato.get(10),connection,panelTabla));
+        panelTabla.add(new TablaLineasCl(dato.get(1), dato.get(2), dato.get(3), dato.get(4),dato.get(5),dato.get(6),dato.get(7),dato.get(8),dato.get(9),dato.get(10),connection,panelTabla,colork));
+        colork++;
         }for (int i = panelTabla.getComponentCount(); i < 10; i++) {
-                    panelTabla.add(new JPanel());
+                    panelTabla.add(new JPanel()).setBackground(new Color(204,255,255));
                 }
         panelTabla.repaint();
         panelTabla.revalidate();

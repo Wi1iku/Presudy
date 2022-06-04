@@ -8,11 +8,16 @@ import clases.*;
 import clases.pdfs.*;
 import java.awt.Component;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -32,9 +37,15 @@ public class PanelPresupuesto extends javax.swing.JPanel {
         
         this.connection = connection;
         initComponents();
+        actualizartablas();
 
     }
     public static void actualizartablas(){
+        
+        jComboBoxCliente.removeAllItems();
+        jComboBox1.removeAllItems();
+        jComboBoxCliente.addItem("Nombre Cliente");
+        jComboBox1.addItem("Nombre Usuario");
     ArrayList<ArrayList<String>> datos = mostrardatos("CLIENTES");
         iol = 0;
         for (ArrayList<String> dato : datos) {
@@ -373,7 +384,34 @@ public class PanelPresupuesto extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.out.println(datosAgredados.size() + "tamañodatosagregados");
+        File fnew;
+        String path=null;
+        File lastdirpdfs = new File(new File("").getAbsolutePath()+ File.separator + "src" + File.separator + "res" + File.separator + "lastdirpfs" + File.separator + "data");
+        if(lastdirpdfs.exists()){
+            try {
+                path = new String(Files.readAllBytes(lastdirpdfs.toPath()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        File past = new File(path);
         datosAgredados=new ArrayList<>();
+        String destino="";
+        JFileChooser fileChooser = new JFileChooser(past.getParent());
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.showSaveDialog(this);
+        File f = fileChooser.getSelectedFile();
+        if(f.getAbsolutePath().endsWith(".pdf")){
+        fnew = new File(f.getAbsolutePath());
+        }else{
+        fnew = new File(f.getAbsolutePath()+".pdf");
+        }
+        destino= fnew.getAbsolutePath();
+        try {
+            Files.write(lastdirpdfs.toPath(), fnew.getAbsolutePath().getBytes());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
             int j = 0;
         for (String addedobject : addedobjects) {
             String[] addedobjetcArray = addedobject.split("\\|");
@@ -412,17 +450,23 @@ public class PanelPresupuesto extends javax.swing.JPanel {
             }
         }
         if (jCheckBox1.isSelected()) {
-            PdfPresupuesto pdf2 = new PdfPresupuesto("pdfpresu2", jComboBoxCliente.getSelectedItem().toString(),jComboBox1.getSelectedItem().toString() ,datosAgredados, connection);
+            PdfPresupuesto pdf2 = new PdfPresupuesto(destino, jComboBoxCliente.getSelectedItem().toString(),jComboBox1.getSelectedItem().toString() ,datosAgredados, connection,"Presupuesto");
         } else {
-            PdfPresupuesto pdf2 = new PdfPresupuesto("pdfpresu2", jComboBoxCliente.getSelectedItem().toString(),jComboBox1.getSelectedItem().toString(),jTextArea1.getText() ,datosAgredados, connection);
+            PdfPresupuesto pdf2 = new PdfPresupuesto(destino, jComboBoxCliente.getSelectedItem().toString(),jComboBox1.getSelectedItem().toString(),jTextArea1.getText() ,datosAgredados, connection,"Presupuesto");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBoxClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxClienteActionPerformed
-        if ((jComboBoxCliente.getSelectedItem().equals("Nombre Cliente")) || (jComboBox1.getSelectedItem().equals("Nombre Usuario"))) {
+        
+        try {
+            
+        
+if ((jComboBoxCliente.getSelectedItem().equals("Nombre Cliente")) || (jComboBox1.getSelectedItem().equals("Nombre Usuario"))) {
             jButton2.setEnabled(false);
         } else {
             jButton2.setEnabled(true);
+        }
+} catch (Exception e) {
         }
     }//GEN-LAST:event_jComboBoxClienteActionPerformed
 
@@ -436,10 +480,15 @@ public class PanelPresupuesto extends javax.swing.JPanel {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        try {
+         
         if ((jComboBoxCliente.getSelectedItem().equals("Nombre Cliente")) || (jComboBox1.getSelectedItem().equals("Nombre Usuario"))) {
             jButton2.setEnabled(false);
         } else {
             jButton2.setEnabled(true);
+        }
+           
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
